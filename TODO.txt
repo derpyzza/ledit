@@ -1,0 +1,31 @@
+add panning
+add tiles
+add rooms
+
+MINIMAL VIABLE PRODUCT:
+  small level editor. features a world, with 6 rooms max. a room is a square box
+  with a size of 64x64 tiles, totalling up to 128 tiles each room. you can place
+  rooms down anywhere within a world, and connect rooms to other rooms. 
+    any room that is neither of:
+      A. The Start Room.
+      B. The End Room.
+      or C. Connected to another room.
+  will be disposed of upon building. levels can be moved around freely in the world
+  by either holding down a key ( ALT perhaps? ) and left clicking, or zooming out
+  and left clicking.
+  there should also always be a start room. room_0 will always be start by default,
+  but the start room should be changable. every room must also contain an entry point,
+  and either one of:
+    A game end point
+    or
+    A level end point.
+  the game end point, as the name suggests, just ends the game.
+  the level end point ends the level, and must be connected to another active level.
+  if no active levels are available the level end point will be turned into a game end
+  point.
+
+
+FUTURE GOALS:
+    every room can contain two types of objects:
+      Tiles: Static tiles. snapped to grid. can be collidable or not.
+      Entities: Interactable objects. can 
