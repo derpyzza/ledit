@@ -1,7 +1,3 @@
-add panning
-add tiles
-add rooms
-
 MINIMAL VIABLE PRODUCT:
   small level editor. features a world, with 6 rooms max. a room is a square box
   with a size of 64x64 tiles, totalling up to 128 tiles each room. you can place
