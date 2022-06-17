@@ -8,4 +8,4 @@ a small mario maker style game written in rust :)
 # Contributors
   Special thanks to all these epic folk for helping me out with this project :D
 
-  [Rein](https://github.com/reinlmao)
+  - [Rein](https://github.com/reinlmao)
