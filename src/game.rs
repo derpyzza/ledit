@@ -5,29 +5,59 @@ use::macroquad::
     math::*,
 };
 
+// NOTE
+// native tile size ( game.tile_size ) is for grabbing the tile from the tilemap only.
+// onscreen tile size is for everything related to drawing and representing grids
+
 pub struct Game {
-    pub tilemap:    Texture2D,
-    pub tile_size:  u8,
+
+    tilemap:    Texture2D,
+    tile_size:  u8,
+    onscreen_tile_size: f32,
+
 }
 
 impl Game {
-    pub fn new (tilemap: &Texture2D , tile_size: u8) -> Self {
+
+    pub fn new (tilemap: &Texture2D , tile_size: u8, onscreen_tile_size: f32) -> Self {
+
         Self {
+
             tilemap: *tilemap,
-            tile_size: tile_size
+            tile_size: tile_size,
+            onscreen_tile_size: onscreen_tile_size,
+
         }
+
     }
 
+    pub fn _onscreen_size(&self) -> f32 {
+        self.onscreen_tile_size
+    }
+
+    pub fn _tile_size(&self) -> u8 {
+        self.tile_size
+    }
+
+    // TODO don't draw tiles outside of the room's boundaries 
     pub fn draw_tile ( &self, tile: u8, x: f32, y: f32 ) {
+        // if tile.x > self.tile_size * 
         draw_texture_ex(self.tilemap,
             x,
             y,
             WHITE,
             DrawTextureParams
             {
-                dest_size: Some(vec2(32.0, 32.0)),
-                source: Some(Rect::new((tile*self.tile_size) as f32, 0., 8., 8.)),
+
+                dest_size: Some(vec2(self.onscreen_tile_size
+                                    ,self.onscreen_tile_size)),
+
+                source: Some(Rect::new((tile*self.tile_size) as f32, 0.,
+                                       self.tile_size as f32,
+                                       self.tile_size as f32)),
+
                 ..Default::default()
-        });
+
+            });
     }
 }
