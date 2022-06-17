@@ -90,7 +90,8 @@ async fn main() {
                         room.pos += mpos - start_mpos;
                         start_mpos = mpos;
                     }
-                    room.tiles.push( ( 2, 8, 0 ) );
+                    room.tiles.push( ( 1, 1, 1 ) );
+                    room.tiles.push( ( 1, 3, 4 ) );
                     room.draw(&wld, &game);
                 },
                 None => {

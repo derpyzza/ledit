@@ -48,17 +48,21 @@ impl Room {
             pos.x, pos.y,
             (8*64) as f32, (8*64) as f32, 5.,
             self.col);
-        // for tile in &self.tiles {
-        //     // let p = -world.to_screen(vec2(tile.1 as f32, tile.2 as f32));
-        //
-        //     let til_po = vec2((tile.1 as u16 * game.tile_size) as f32
-        //                      ,(tile.2 as u16 * game.tile_size) as f32);
-        //     // let p   = 
-        //     println!("{}", t_p);
-        //
-        //     // game.draw_tile(tile.0, p.x, p.y
-        //     // );
-        // }
+        for tile in &self.tiles {
+            // get tile data in cells, transform that to screen coords.
+            let tile_pos: Vec2 = {
+                let mut level_coords = vec2( // transform cell data to grid coords.
+                    tile.1 as f32 * 32.,
+                    tile.2 as f32 * 32.
+                );
+                level_coords -= self.pos; // transform to local level coords
+                level_coords = world.to_world(level_coords); // transform to world coords
+                level_coords
+            };
+
+            game.draw_tile(tile.0, tile_pos.x, tile_pos.y);
+
+        }
 
         draw_text(format!("Room_{}", self.id).as_str(),
             pos.x + 40., pos.y + (8.*64.) + 20., 20., self.col
@@ -78,6 +82,15 @@ impl Room {
     }
 }
 
+            // let p = -world.to_screen(vec2(tile.1 as f32, tile.2 as f32));
+
+            // let til_po = vec2((tile.1 as u16 * game.tile_size) as f32
+            //                  ,(tile.2 as u16 * game.tile_size) as f32);
+            // // let p   =
+            // println!("{}", t_p);
+
+            // game.draw_tile(tile.0, p.x, p.y
+            // );
         // for x in (0..128).step_by(8) {
         //     for y in (0..128).step_by(8) {
         //         draw_line(x as f32, y as f32, x as f32+screen_width(), y as f32 +screen_height() , 2., RED);
