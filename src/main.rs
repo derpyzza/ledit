@@ -111,7 +111,7 @@ async fn main() {
                     //     start_mpos = mpos;
                     //
                     // }
-                    for x in 0..33 {
+                    for x in 0..32 {
                         room.tiles.push((1, x, x));
                     }
 
