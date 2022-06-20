@@ -4,6 +4,7 @@ use macroquad::{color::*, input::*, math::*, shapes::*, text::draw_text, texture
 
 pub type Tile = (u8, u8, u8);
 
+#[derive(Clone)]
 pub struct Room {
     id: u8,
     pub tiles: Vec<Tile>, // make private. only rooms should be allowed to manage their rooms.
@@ -29,11 +30,18 @@ impl Room {
         let pos = -world.to_screen(self.pos);
         let tile_size = game._onscreen_size();
 
-        macroquad::prelude::draw_rectangle_lines(
+        macroquad::prelude::draw_rectangle(
             pos.x,
             pos.y,
             tile_size * self.size,
             tile_size * self.size,
+            Color::from_rgba(57, 55, 64, 255),
+        );
+        macroquad::prelude::draw_rectangle_lines(
+            pos.x - 5.,
+            pos.y - 5.,
+            (tile_size * self.size) + 10.,
+            (tile_size * self.size) + 10.,
             5.,
             self.col,
         );
@@ -58,8 +66,8 @@ impl Room {
         draw_text(
             format!("Room_{}", self.id).as_str(),
             pos.x + 40.,
-            pos.y + (tile_size * self.size) + 20.,
-            20.,
+            pos.y + (tile_size * self.size) + 30.,
+            30.,
             self.col,
         );
     }
