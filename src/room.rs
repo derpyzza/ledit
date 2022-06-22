@@ -3,12 +3,11 @@ use macroquad::{
     shapes::draw_rectangle_lines,
     color::RED
 };
-
-pub struct Tiles(u8, u8, u8);
+use crate::tile::Tile;
 
 pub struct Room {
     id: u8,
-    tiles: Vec<Tiles>,
+    tiles: Vec<Tile>,
     size: f32,
 }
 
