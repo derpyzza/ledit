@@ -1,7 +1,8 @@
 use macroquad::{
     math::*,
     shapes::draw_rectangle_lines,
-    color::RED
+    color::*,
+    texture::*,
 };
 use crate::tile::Tile;
 
@@ -20,7 +21,31 @@ impl Room {
         }
     }
 
-    pub fn draw(&self, pos: Vec2) {
-        draw_rectangle_lines(pos.x, pos.y, 16. * 32., 16. * 32., 3., RED);
+    pub fn draw(&self, tilemap: Texture2D) {
+        // draw_rectangle_lines(pos.x, pos.y, 16. * 32., 16. * 32., 3., RED);
+        for tile in &self.tiles {
+            draw_texture_ex(
+                tilemap,
+                tile.1 as f32 * 48.,
+                tile.2 as f32 * 48.,
+                WHITE,
+                DrawTextureParams {
+                    dest_size: Some(vec2(48., 48.)),
+
+                    source: Some(Rect::new(
+                        tile.0 as f32 * 16.,
+                        0.,
+                        16.,
+                        16.,
+                    )),
+
+                    ..Default::default()
+                },
+            );
+        }
+    }
+
+    pub fn push_tile(&mut self, tile: Tile) {
+        self.tiles.push(tile);
     }
 }

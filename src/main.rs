@@ -4,6 +4,7 @@ use macroquad::prelude::*;
 mod tile;
 mod room;
 use room::Room;
+use tile::Tile;
 
 fn window_conf() -> Conf {
     Conf {
@@ -25,6 +26,7 @@ async fn main() {
     let mut cursor_pos = Vec2::ZERO;
     let mut prev_cursor_pos = Vec2::ZERO;
     let offset = 48.;
+    let mut room = Room::new(0);
 
     loop {
         // let offset: Vec2 = vec2((screen_width() % 48.).round(), (screen_height() % 48.).round());
@@ -48,9 +50,17 @@ async fn main() {
             if is_mouse_button_down(MouseButton::Left) {
                 c = GREEN;
             }
-
+            draw_text(format!("{},{}", 
+                              (cursor_pos.x/48.).round(), 
+                              (cursor_pos.y/48.).round()).as_str(),
+                              30., 50., 20., RED);
             draw_text(format!("{}", get_fps()).as_str(), 30., 30., 20., RED);
         }
+        if is_mouse_button_down(MouseButton::Left) && prev_cursor_pos != cursor_pos {
+            &room.push_tile(Tile(3, (cursor_pos.x/48.).round() as u8, 
+                                    (cursor_pos.y/48.).round() as u8));
+        }
+        room.draw(tilemap);
         if !is_mouse_button_down(MouseButton::Left) {
             draw_texture_ex(
                 tilemap,
